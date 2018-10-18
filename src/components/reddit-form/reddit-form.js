@@ -10,7 +10,6 @@ class RedditSearchForm extends React.Component {
 
     this.state = {};
     this.state.redditName = this.props.name || '';
-
     this.state.searchLimit = 10;
   };
 
@@ -49,7 +48,10 @@ class RedditSearchForm extends React.Component {
 }
 
 RedditSearchForm.propTypes = {
-    name: PropTypes.array,
+    handleForumChange: PropTypes.func,
+    redditName: PropTypes.String,
+    searchLimit: PropTypes.number,
+
 };
 
 export default RedditSearchForm;

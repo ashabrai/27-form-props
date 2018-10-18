@@ -6,48 +6,25 @@ class SearchResultList extends React.Component {
   //   super(props);
   //
   // }
-
-    handleClick = () =>{
-        if(!this.state.articles.imageUrl){
-            return superagent.get(this.state.articles.url)
-                .then(response =>{
-                    this.state.handleForumChange({
-                        ...this.state.articles,
-                        imageUrl: response.body.imageUrl,
-                        height: response.body.height,
-                    });
-                })
-        }else {
-            this.props.handleForumChange({
-                ...this.state.articles,
-                imageUrl: null,
-                height:null,
-            })
-        }
-    }
   render() {
     return (
-      <li onClick={this.handleSubmit}>
-          </br>
-      <p> Author: {articles.data.author}</p>
-        ? <div className='searchResults'>
-                {
-                this.state.articles.map((articles, index) => <div key = {index}>
-                    <a href={articles.data.url}>{articles.data.name}
-                    <p>{articles.data.ups}</p>
-                    </a>
-                    </div>)}
-            </div>
-        : <div className='empty'>
-            Please specify what you want to see and the total amount
-            </div>
+        <li key={this.props.key}>
+            <p>author:{this.props.articles.data.author}</p>
+            <img className ="searchImages" src={this.props.articles.data.url} />
+            <p> Ups: {this.props.articles.data.ups}</p>
 
+            <a href ={`https://www.reddit.com${this.props.articles.data.permalink}`} target='_blank' rel='noopener noreferrer'>{this.props.articles.data.name}</a>
+        </li>
     );
   }
 }
-
 SearchResultList.propTypes = {
   articles: PropTypes.object,
+  data: PropTypes.object,
+  permalink: PropTypes.object,
+  name: PropTypes.object,
+  key: PropTypes.object,
+
 };
 
 export default SearchResultList;

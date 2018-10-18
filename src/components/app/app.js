@@ -15,11 +15,11 @@ class App extends React.Component {
 
     }
 
-    async componentDidMount() {
-        await this.loadResultList();
-
-        console.log('Reddit list loaded!');
-    }
+    // async componentDidMount() {
+    //     await this.loadResultList();
+    //
+    //     console.log('Reddit list loaded!');
+    // }
 
     loadResultList = async (redditName, searchLimit) => {
         const REDDIT_API = `https://www.reddit.com/r/${redditName}.json?limit=${searchLimit}`;
@@ -42,10 +42,12 @@ class App extends React.Component {
                 <ul>
                     {
                     this.state.articles.map((currentArticle, index) => {
-                       return <RedditList
-                            article={currentArticle}
-                            key = {index}
-                        />
+                        if(currentArticle) {
+                            return <RedditList
+                                articles = {currentArticle}
+                                key = {index}
+                            />
+                        }
                     })
                 }
 
