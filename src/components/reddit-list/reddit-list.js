@@ -1,31 +1,53 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class SearchResultList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.renderResultList = this.renderResultList.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //
+  // }
 
-  renderResultList(results) {
-    return (
-          <ul>
-              { results.map((result, index) => {
-                return (
-                      <a href={ result.url } key = { index }><li> { result.title } </li></a>
-                );
-              })}
-          </ul>
-    );
-  }
-
+    handleClick = () =>{
+        if(!this.state.articles.imageUrl){
+            return superagent.get(this.state.articles.url)
+                .then(response =>{
+                    this.state.handleForumChange({
+                        ...this.state.articles,
+                        imageUrl: response.body.imageUrl,
+                        height: response.body.height,
+                    });
+                })
+        }else {
+            this.props.handleForumChange({
+                ...this.state.articles,
+                imageUrl: null,
+                height:null,
+            })
+        }
+    }
   render() {
     return (
-        <section>
-            <h2>Search Results:</h2>
-            { this.renderResultList(this.props.searchResults) }
-        </section>
+      <li onClick={this.handleSubmit}>
+          </br>
+      <p> Author: {articles.data.author} </p>
+        ? <div className='searchResults'>
+                {
+                this.state.articles.map((articles, index) => <div key = {index}>
+                    <a href={articles.data.url}>{articles.data.name}
+                    <p>{articles.data.ups}</p>
+                    </a>
+                    </div>)}
+            </div>
+        : <div className='empty'>
+            Please specify what you want to see and the total amount
+            </div>
 
     );
   }
 }
+
+SearchResultList.propTypes = {
+  articles: PropTypes.object,
+};
+
 export default SearchResultList;

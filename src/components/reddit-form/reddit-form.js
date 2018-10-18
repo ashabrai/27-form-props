@@ -1,64 +1,55 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 // const apiUrl = 'http://www.reddit.com/r/';
 
 class RedditSearchForm extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {};
-        this.state.redditForm = this.props.title || '';
-        this.state.searchLimit = this.props.searchLimit || 5;
-    };
+    this.state = {};
+    this.state.redditName = this.props.name || '';
 
-    handleForumChange = event => {
-        //! Vinicio - EVERY CHANGE IN THE VIEW IT'S TIED TO STATE
-        this.setState({ redditForm: event.target.value});
-    };
+    this.state.searchLimit = 10;
+  };
 
-    handleLimitChange = event =>{
-        this.setState({ searchLimit: event.target.value});
-    };
-    handleSubmit = event => {
-        event.preventDefault();
-        //! Vinicio - Here, I need to update state, based on my current state
-        this.props.loadResultList(this.state.redditForm, this.state.searchlimit);
-    };
-    // redditForumSelect() {
-    //     return superagent.get(`${apiUrl}${'cat'}.json?limit=${'1'}`)
-    //         .then((response) =>{
-    //             console.log(response.body);
-    //             this.setState({
-    //                 redditForumResult: response.body,
-    //                 redditForumError: null,
-    //             });
-    //         })
-    //         .catch(console.error);
-    // }
+  handleForumChange = event => {
+      this.setState({ redditName: event.target.value});
+  };
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input
-                    type="text"
-                    name = "reddit-form"
-                    placeholder ='Search for a Reddit Forum'
-                    value= { this.state.redditForm }
-                    onChange= { this.handleForumChange }
+  handleSubmit = event => {
+      event.preventDefault();
+      this.props.loadResultList(this.state.redditName, this.state.searchLimit);
+  };
+  handleSearchLimit = event => {
+      this.setState({searchLimit: event.target.value})
+  };
+  render() {
+    return (
+        <form onSubmit ={this.handleSubmit}>
+          <input
+                name ="redditName"
+                value={this.state.redditName}
+                onChange={this.handleForumChange}
+                type="text" />
+          <input
+                name ="searchLimit"
+                placeholder='How many results?'
+                min='0'
+                max='100'
+                value={ this.state.searchLimit }
+                onChange={ this.handleSearchLimit }
+                required
                 />
-                <input
-                    type="number"
-                    name ="search-limit"
-                    placeholder='How many would you like to see?'
-                    min='0'
-                    max='100'
-                    value={ this.state.searchLimit }
-                    onChange={this.handleLimitChange}
-                    />
-                <button type="submit"> Click Here </button>
-            </form>
-        );
-    }
+            <button type ="submit"> Search </button>
+        </form>
+    )
+  }
 }
+
+RedditSearchForm.propTypes = {
+    name: PropTypes.array,
+};
 
 export default RedditSearchForm;
