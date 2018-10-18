@@ -29,7 +29,7 @@ class SearchResultList extends React.Component {
     return (
       <li onClick={this.handleSubmit}>
           </br>
-      <p> Author: {articles.data.author} </p>
+      <p> Author: {articles.data.author}</p>
         ? <div className='searchResults'>
                 {
                 this.state.articles.map((articles, index) => <div key = {index}>
